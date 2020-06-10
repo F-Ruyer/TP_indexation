@@ -73,7 +73,9 @@ def calculeDF(listeracines):
     dict={}
     for doc in listeracines:
         for w in listeracines[doc]:
-            if not(dict.get(w)):
+            if dict.get(w):
+                dict[w]=dict[w]+1
+            else:
                 dict[w] = 1
     return dict
 
