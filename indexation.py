@@ -30,6 +30,9 @@ liste_documents = os.listdir(outils.DOSSIERDOCUMENTS)
 
 
 def dico_liste_racines():
+    """
+    :return: retourne le dictionnaire des clés= noms de fichiers et élts = liste des racines
+    """
     dict ={}
     for f in liste_documents:
         dict[f] =  doc2listeRacines(f)
@@ -37,6 +40,10 @@ def dico_liste_racines():
 
 
 def calcule_tf(liste):
+    """
+    :param liste: liste de mots
+    :return: le dictionnaire de clés les mots et de valeur le nb d'occurence du mot dans la liste
+    """
     dict={}
     for w in liste:
         if dict.get(w):  # renvoie 1 si le mot est dans le dict, faux sinon
@@ -51,8 +58,12 @@ def calculeTF(listeracine):
     :param listeracine: dictionnaire de cles noms des docs et d'éléments la liste des racines
     :return: dictionnaire de clés nm du doc et d'éléments un dictionnaire de clé la racine et d'élément son tf
     """
+    dict={}
+    for cle in listeracine:
+        dict[cle] = calcule_tf(listeracine[cle])
+    return dict
 
-    return{}
+
 
 def calculeDF(listeracines):
     """
