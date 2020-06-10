@@ -67,11 +67,17 @@ def calculeTF(listeracine):
 
 def calculeDF(listeracines):
     """
-
     :param listeracines: dico qui contient les listes de racines pour chaque doc
     :return: dico qui contient pour chaque racine le nbre de docs qui la contiennent
     """
-    return{}
+    dict={}
+    for doc in listeracines:
+        for w in listeracines[doc]:
+            if dict.get(w):
+                dict[w]=dict[w]+1
+            else:
+                dict[w] = 1
+    return dict
 
 def creationIndex(dicoTF,dicoDF):
     """
