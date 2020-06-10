@@ -36,7 +36,14 @@ def dico_liste_racines():
     return dict
 
 
-
+def calcule_tf(liste):
+    dict={}
+    for w in liste:
+        if dict.get(w):  # renvoie 1 si le mot est dans le dict, faux sinon
+            dict[w]=dict[w]+1
+        else:
+            dict[w]=1
+    return dict
 
 
 def calculeTF(listeracine):
@@ -44,6 +51,7 @@ def calculeTF(listeracine):
     :param listeracine: dictionnaire de cles noms des docs et d'éléments la liste des racines
     :return: dictionnaire de clés nm du doc et d'éléments un dictionnaire de clé la racine et d'élément son tf
     """
+
     return{}
 
 def calculeDF(listeracines):
