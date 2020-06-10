@@ -6,10 +6,6 @@ import outils
 
 
 
-
-def essai():
-    print("hi")
-
 def doc2listeRacines(chemin):
     """
     :param chemin: chemin du document
@@ -28,10 +24,24 @@ def doc2listeRacines(chemin):
     liste_racines = list(map (outils.mot2racine , liste_mots_utiles))
     return liste_racines
 
+import os
+
+liste_documents = os.listdir(outils.DOSSIERDOCUMENTS)
+
+
+def dico_liste_racines():
+    dict ={}
+    for f in liste_documents:
+        dict[f] =  doc2listeRacines(f)
+    return dict
+
+
+
+
 
 def calculeTF(listeracine):
     """
-    :param listeracine: dictionnaire de cles noms desdocs et d'éléments la liste des racines
+    :param listeracine: dictionnaire de cles noms des docs et d'éléments la liste des racines
     :return: dictionnaire de clés nm du doc et d'éléments un dictionnaire de clé la racine et d'élément son tf
     """
     return{}
