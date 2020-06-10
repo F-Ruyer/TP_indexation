@@ -1,5 +1,6 @@
 # Mon TP
 # Fred Ruyer
+from typing import Iterator
 
 import outils
 
@@ -20,12 +21,12 @@ def doc2listeRacines(chemin):
     for m in liste_de_mots_bruts:
         if outils.contientLettres(m):
             liste_sans_non_mots.append(m)  #suppression des nonmots
-    print(liste_sans_non_mots)
-    liste_mots_utiles=[]
+    liste_mots_utiles=[]  #suppression des mots-outils
     for m in liste_sans_non_mots:
         if not(m in outils.MOTSOUTILS):
             liste_mots_utiles.append(m)
-    return liste_mots_utiles
+    liste_racines = list(map (outils.mot2racine , liste_mots_utiles))
+    return liste_racines
 
 
 def calculeTF(listeracine):
