@@ -118,7 +118,15 @@ def inverseindex(index):
     :param index: index doc:recine:tfidf
     :return: renvoie l'inverse racine:doc:tfidf
     """
-    return{}
+    inverse = {}
+    for doc in index:
+        for rac in index[doc]:
+            if inverse.get(rac):
+                inverse[rac][doc]=index[doc][rac]
+            else:
+                inverse[rac]={}
+                inverse[rac][doc] = index[doc][rac]
+    return inverse
 
 
 

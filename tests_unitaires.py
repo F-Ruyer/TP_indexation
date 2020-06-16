@@ -4,6 +4,9 @@ l= indexation.liste_test
 d = indexation.dico_liste_racines("mes_docs/", l)
 dicotf = indexation.calculeTF(d)
 dicodf = indexation.calculeDF(d)
+index = indexation.creationIndex(dicotf,dicodf)
+inv = indexation.inverseindex(index)
+
 
 def teste_liste():
     print("liste des docs de tests:")
@@ -24,11 +27,13 @@ def affiche_leDF():
     print(dicodf)
 
 def affiche_index_tfidf():
-    index = indexation.creationIndex(dicotf,dicodf)
+    # index = indexation.creationIndex(dicotf,dicodf)
     print(" Affichage de l'index:")
     print(index)
 
-
+def affiche_index_inverse():
+    print(" Affichage de l'index inverse:")
+    print(inv)
 
 def teste_tout():
     teste_liste()
@@ -36,6 +41,7 @@ def teste_tout():
     affiche_leTF()
     affiche_leDF()
     affiche_index_tfidf()
+    affiche_index_inverse()
 
 
 
