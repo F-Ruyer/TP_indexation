@@ -4,14 +4,23 @@ from typing import Iterator
 
 import outils
 
+def loadFile(dossier,filename):# loadfile du module outil modifié pour prendre en compte tout chemin
+    """
+    Lit un fichier et le renvoie sous forme de chaine unicode (tout en minuscule)
+    """
+    with open(dossier+filename, encoding='utf-8') as f:
+        result = f.read()
+    return result.lower()
 
 
-def doc2listeRacines(chemin):
+
+
+def doc2listeRacines(dossier,fichier):
     """
     :param chemin: chemin du document
     :return: liste des racines
     """
-    chaine_de_fichier = outils.loadFile(chemin) #chargement de la chaine
+    chaine_de_fichier = loadFile(dossier, fichier) #chargement de la chaine
     liste_de_mots_bruts = outils.string2list(chaine_de_fichier)  #transo de la chaine en liste
     liste_sans_non_mots=[]
     for m in liste_de_mots_bruts:
@@ -26,16 +35,21 @@ def doc2listeRacines(chemin):
 
 import os
 
-liste_documents = os.listdir(outils.DOSSIERDOCUMENTS)
+#utilistaires chemins et fichiers
+liste_documents_TP = os.listdir(outils.DOSSIERDOCUMENTS)
+
+liste_test = os.listdir("mes_docs/")
 
 
-def dico_liste_racines():
+def dico_liste_racines(dossier, l):
     """
+    :param: dossier= dossier où sont les fichiers
+    :param: l = liste des fichiers
     :return: retourne le dictionnaire des clés= noms de fichiers et élts = liste des racines
     """
     dict ={}
-    for f in liste_documents:
-        dict[f] =  doc2listeRacines(f)
+    for f in l:
+        dict[f] = doc2listeRacines(dossier, f)
     return dict
 
 
@@ -72,20 +86,31 @@ def calculeDF(listeracines):
     """
     dict={}
     for doc in listeracines:
+        dejavu={} # contient les racines déjà rencontées
         for w in listeracines[doc]:
-            if dict.get(w):
-                dict[w]=dict[w]+1
+            if dict.get(w): # a été rencontré dans un doc précédent
+                if  (not dejavu.get(w)): # n'a pas été comptabilisé dans ce document
+                    dict[w]=dict[w]+1
+                    dejavu[w]=1
             else:
                 dict[w] = 1
+                dejavu[w] = 1
     return dict
+
+
+
+
 
 def creationIndex(dicoTF,dicoDF):
     """
     :param dicoTF: contient les TF de chaque doc
     :param dicoDF: contient les df de chaque racine
-    :return: dico qui contient pour chaque doc  un dico qui contient pour chaque racine son tfidf
+    :return: dico qui contient pour chaque doc  un dico qui contient pour chaque racine son tfidf = tf.idf
     """
-    return{}
+    for doc in dicoTF:
+        for rac in dicoTF[doc]:
+            dicoTF[doc][rac] = dicoTF[doc][rac]/ dicoDF[rac]
+    return dicoTF
 
 
 def inverseindex(index):
