@@ -40,6 +40,8 @@ liste_documents_TP = os.listdir(outils.DOSSIERDOCUMENTS)
 
 liste_test = os.listdir("mes_docs/")
 
+liste_test_2 = os.listdir("Docs_Lorraine/")
+
 
 def dico_liste_racines(dossier, l):
     """
@@ -81,6 +83,20 @@ def norme_doc(dict):
     n = sqrt(s)
     return n
 
+def scalaire(u,v):
+    """
+    calcul du produt scalaire; mettre si possible en premier un vecteur qui a peu de coordonnées!
+    Les vecteurs sont des dictionnaires, et on est sûr que toutes les clés de v sont aussi dans u
+    :param u: vecteur
+    :param v: vecteur
+    :return: produit scalaire
+    """
+    scal = 0
+    for mot in u:
+        if v.get(mot):
+            scal = scal + u[mot]*v[mot]
+    return scal
+
 
 
 def calculeTF(listeracine):
@@ -92,8 +108,6 @@ def calculeTF(listeracine):
     for cle in listeracine:
         dict[cle] = calcule_tf(listeracine[cle])
     return dict
-
-
 
 
 
@@ -119,17 +133,21 @@ def calculeDF(listeracines):
 
 
 
-
+from math import log
 
 def creationIndex(dicoTF,dicoDF):
     """
     :param dicoTF: contient les TF de chaque doc
     :param dicoDF: contient les df de chaque racine
-    :return: dico qui contient pour chaque doc  un dico qui contient pour chaque racine son tfidf = tf.idf
+    :return: dico qui contient pour chaque doc  un dico qui contient pour chaque racine son tfidf = tf/idf puis divisé par la norme
     """
+    taille_corpus = len(dicoTF)
     for doc in dicoTF:
         for rac in dicoTF[doc]:
-            dicoTF[doc][rac] = dicoTF[doc][rac]/ dicoDF[rac]
+            dicoTF[doc][rac] = dicoTF[doc][rac]*log(taille_corpus/ dicoDF[rac])  #On calcule les tfidf
+        norme = norme_doc(dicoTF[doc])  #on calcule les normes
+        for rac in dicoTF[doc]:
+            dicoTF[doc][rac] = dicoTF[doc][rac]/norme #on calcule les tfidf normalisés
     return dicoTF
 
 
