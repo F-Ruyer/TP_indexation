@@ -67,6 +67,22 @@ def calcule_tf(liste):
     return dict
 
 
+from math import sqrt
+
+
+def norme_doc(dict):
+    """
+    :param dict: un dictionnaire de clés des mots et de valeurs le nb d'occ du mot dans un doc
+    :return: la norme de ce vecteur
+    """
+    s= 0
+    for mot in dict:
+        s=s+dict[mot]**2
+    n = sqrt(s)
+    return n
+
+
+
 def calculeTF(listeracine):
     """
     :param listeracine: dictionnaire de cles noms des docs et d'éléments la liste des racines
@@ -76,6 +92,10 @@ def calculeTF(listeracine):
     for cle in listeracine:
         dict[cle] = calcule_tf(listeracine[cle])
     return dict
+
+
+
+
 
 
 

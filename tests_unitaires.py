@@ -3,6 +3,7 @@ import indexation
 l= indexation.liste_test
 d = indexation.dico_liste_racines("mes_docs/", l)
 dicotf = indexation.calculeTF(d)
+norme1 = indexation.norme_doc(dicotf["mondoc1.txt"])
 dicodf = indexation.calculeDF(d)
 index = indexation.creationIndex(dicotf,dicodf)
 inv = indexation.inverseindex(index)
@@ -16,6 +17,13 @@ def affiche_le_dico():
     print(" ")
     print("Affichage du dico des docs:")
     print(d)
+
+def calcule_norme():
+    print(" ")
+    print("Norme du vecteur de tf de  mondoc1")
+    print(norrme1)
+
+
 
 def affiche_leTF():
 
@@ -38,6 +46,7 @@ def affiche_index_inverse():
 def teste_tout():
     teste_liste()
     affiche_le_dico()
+    calcule_norme()
     affiche_leTF()
     affiche_leDF()
     affiche_index_tfidf()
